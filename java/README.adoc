@@ -1,0 +1,208 @@
+
+= JAVA TRAINING
+:toc:
+
+
+== *JAVA 7*
+
+== try-with-resources
+Allows us to declare resources to be used in a _try_ block with assurance that the resources will be closed after the execution of the block. The resource must implement the _AutoClosable_ interface:
+
+=== Syntax
+The resource must be declared and initialized inside the _try_
+
+[source, java]
+----
+try (PrintWriter writer = new PrintWriter(new File("test.txt"))) {
+	writer.println("Hello World!"):
+}
+----
+
+=== _try-catch-finally -> try-with-resources_
+.try-catch-finally
+[source, java]
+----
+try {
+	scanner = new Scanner(new File("test.txt"));
+	while (scanner.hasNext()){
+		//TODO
+	}
+} catch (FileNotFoundException ex) {
+	ex.printStackTrace();
+} finally {
+	if (scanner != null) {
+		scanner.close();
+	}
+}
+----
+
+.try-with-resources
+[source, java]
+----
+try (Scanner scanner = new Scanner(new File("test.txt"))) {
+	while (scanner.hasNext()) {
+		//TODO
+	}
+} catch (FileNotFoundException ex) {
+	ex.printStackTrace();
+}
+----
+
+===  With multiple resources
+Multiple resources can be declared in a _try-with-resources_ block by separating them with a semicolon:
+[source, java]
+----
+try (Scanner scanner = new Scanner(new File("testRead.txt"))); //first resource
+	PrintWriter writer = new PrintWriter(new File("testWriter.txt")) { //second resource
+	while (scanner.hasNext()) {
+    	//TODO 
+	}
+}
+----
+
+=== A custom resource with _AutoCloseable_
+The custom resource should implement the _Closeable_ or _AutoCloseable_ interfaces, and override the *_close_* method:
+[source, java]
+----
+public class MyResource implements Autoclosable {
+	
+	@Override
+	public void close() throws Exception {
+		System.out.println("Closed MyResource");
+	}
+}
+----
+
+=== Closing Order
+Resources that were defined/acquired first will be closed last(like a first-input/last-output):
+
+*First Resource*
+[source, java]
+----
+public class ResourceFirst implements AutoCloseable {
+ 
+    public ResourceFirst() {
+        System.out.println("Constructor -> Resource_First");
+    }
+ 
+    public void doSomething() {
+        System.out.println("Something -> Resource_First");
+    }
+ 
+    @Override
+    public void close() throws Exception {
+        System.out.println("Closed Resource_First");
+    }
+}
+----
+
+*Second Resource*
+[source, java]
+----
+public class ResourceSecond implements AutoCloseable {
+ 
+    public ResourceSecond() {
+        System.out.println("Constructor -> Resource_Second");
+    }
+ 
+    public void doSomething() {
+        System.out.println("Something -> Resource_Second");
+    }
+ 
+    @Override
+    public void close() throws Exception {
+        System.out.println("Closed Resource_Second");
+    }
+}
+----
+
+*Order*
+[source, java]
+----
+private void orderOfClosingResources() throws Exception {
+    try (ResourceFirst first = new ResourceFirst();
+        ResourceSecond second = new ResourceSecond()) {
+ 
+        first.doSomething();
+        second.doSomething();
+    }
+}
+----
+
+*_Result:_*
+[source, java]
+----
+Constructor -> Resource_First
+Constructor -> Resource_Second
+Something -> Resource_First
+Something -> Resource_Second
+Closed Resource_Second
+Closed Resource_First
+----
+
+== Future
+* Callable
+* Executor
+
+
+== Optional
+
+
+== *JAVA 9...12*
+
+=== Why Modules?
+.Old style
+* Old classpath pround to error.
+* Classpath is plain, can not express dependencies between components.
+* Errors in runtime, hard to diagnose the problem
+
+.New modules style
+* Now modules declarations, 
+* Contract between different components.
+* This contract explicitly defines the relationship dependencies between modules.
+* Any problem between configurations will discored at compile time.
+* The contract espicify what the module exposes to the outside world on the package level
+
+* Reliable configuration
+* Strong Encapsulation
+* Scalable Java platform, now is decompused into modules, this allow us custom configuration
+* Greater platform integrity
+* Improved performance
+
+NOTE: Module Path does not replace classpath
+
+
+==== *_Module declaration_*(_module-info.java_)
+Describe how the module comunicates to the outside world, which modules expose, which modules requires
+
+--class-path <classpath>
+--module-path <modulepath>
+
+The compiler verifies that all necessary modules are present
+
+
+*Unamed module* is when there are not a module-info.java in the JAR
+Everything in the classpath becomes _unamed module_
+A *Named module* is a module declared in the module-info.java
+A plain JAR with no module declarations becomes an *automatic module*
+An _automatic module_ can be used as a dependency in other modules declarations
+
+==== *Migrating to modules*
+Is recommend to start migrating to Java module withouth especifying a module(automatic module) 
+.Migrate without modules analyze with *jdeps*
+* internal API
+* Java EE modules
+* internal Jars
+
+.Migrate with modules
+* jdeps --generate-module-info
+* Strategies for modularization
+** bottom-up
+** top-down
+** inside-out
+
+If the application is a monolothic with a lot of dependencies between components it wold be beneficial to use modules.
+
+
+
+

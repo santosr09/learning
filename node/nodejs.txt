@@ -1,0 +1,28 @@
+nodejs
+
+_Ejecutar una app con node
+node app.js
+
+1_Inicializa npm en el proyecto
+npm init
+2_Crear el package.json
+3_Instalar un paquete npm
+npm install <package-name>@<version>
+npm i <package-name>@<version>
+4_Una vez que se instala el primer paquete desde npm, se crea la carpeta 'node_modules'
+
+_EL PAQUETE 'node_modules' NO DEBERÁ SUBIRSE AL REPOSITORIO, PARA RECREARLO SE UTILIZA EL COMANDO:
+npm install
+
+_Dicho comando utiliza la información de package.json y package-lock.json para recrear el 'node_modules'
+
+_Para instalar un paquete de manera Global:
+npm i <package-name>@<version> -g
+
+_Verificar si un paquete esta instalado, consultamos la version de dicho paquete:
+<package-name> -v
+
+_NODEMON: Permite ver los cambios en caliente
+nodemon app.js
+
+sudo npm i nodemon@<version> -g //Se instala de manera Global
