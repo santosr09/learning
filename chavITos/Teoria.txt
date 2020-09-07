@@ -1,0 +1,224 @@
+HolaMundo
+https://www.youtube.com/watch?v=hXJQz4hGxyI
+
+Como funciona una computadora?
+El microprocesador es básicamente el cerebro de toda computadora, se apoya de la memoría RAM y el Disco Duro, Todos montados sobre la placa madre o placa base.
+El microprocesador es el cerebro, es el que se encarga de realizar todos los cálculos necesarios para llevar a cabo tareas especificas.
+
+La razón de existir de las computadoras es ayudar a las personas a realizar TAREAS REPETITIVAS Y CÁLCULOS MUY COMPLEJOS qué para los humanos resultaría muy tardado y requeriría de muchas personas.
+La computadora debe saber que es lo que tiene que hacer, debe tener instrucciones claras y especificas de que debe hacer con los datos que recibe, a esas instrucciones se les conoce como PROGRAMAS COMPUTACIONALES (Software)
+
+Dichas instrucciones son escritas utilizando LENGUAJES DE PROGRAMACIÓN
+
+Las primeras computadoras eran máquinas enormes, compuestas de piezas mecánicas y eléctricas (engranes, rotores, cables, focos, baterias, etc.) y para que esas máquinas supieran lo que tenían que hacer, se PROGRAMABAN modificando el cableado, y los datos se ingresaban mediante tarjetas perforadas, el resultado de los datos procesados eran obtenidos tambien en tarjetas perforadas.
+
+El proceso para programar las primeras computadores era muy complejo, tedioso, tardado. La llegada del microprocesador sustituyó los componentes mecánicos y electricos, esto redujo enormente el costo y tamaño de las computadoras. En estas nuevas computadoras ya no era necesario programarlas utilizando cables e interruptores, empezaron a surgir LENGUAJES DE PROGRAMCION
+
+Un Lenguaje de Programación nos sirve para ESCRIBIR PROGRAMAS, los programas son INSTRUCCIONES BIEN DEFINIDAS de lo que la computadora debe hacer con LOS DATOS QUE LE INGRESAMOS.
+
+Para procesar datos se necesita:
+Un programa de computadora, este contiene las instrucciones que debe seguir la computadora, es decir las operaciones que debe realizar con los datos que le ingresemos.
+
+Datos de entrada, es la inforamación que ingresamos a la computadora y que será procesada si guiendo las instrucciones del programa, al final producirá información de salida ya procesada y que deberá ser mostrada al usuario por algún medio.
+
+Datos de salida, es el resultado del procesamiento de los datos que ingresamos.
+
+Los lenguajes de programación al igual que el lenguaje humano varía en su sintaxis, por ejemplo, la frase "Hola, Buenos días" la podemos escribir en diferentes lenguajes.
+
+Español
+Buenos días
+
+Inglés
+Good morning
+
+Francés
+Bonjour
+
+Chino
+你好，早上好
+
+Portugués
+Bom dia
+
+Lo mismo ocurre con los lenguajes de programación, una misma instrucción varía entre diferentes lenguajes de programación, por ejemplo, queremos que la computadora muestre el mensaje "Hola Mundo".
+
+En lenguaje 'C'
+int main(int argc, char *argv[]) {
+            printf("Hola Mundo");
+            return 0;
+}
+
+En lenguaje 'Pascal'
+PROGRAM HOLA_MUNDO;
+BEGIN
+   WRITELN('Hola mundo');
+END.
+
+En lenguaje 'Java'
+public class HolaMundo {
+ 
+	public static void main(String[] args) {		
+		System.out.println("Hola Mundo");
+	}
+ 
+}
+
+En lenguaje Groovy
+println "Hola Mundo"
+
+En lenguaje 'Python'
+print "Hola Mundo"
+
+En lenguaje Elixir:
+IO.puts "Hola Mundo"
+
+Para que las instrucciones escritas en cierto lenguaje de programación puedan ser ejecutadas por una computadora, debemos tener instalado en nuestra computadora el COMPILADOR o INTERPRETE de dicho lenguaje.
+Poniendo como ejemplo el lenguaje humano:
+Si nosotros queremos comunicarnos en Inglés, debemos tener instalado en nuestro cerebro el idioma Inglés, debemos saber Inglés, para saber que es lo queremos decir y que es lo que nos están diciendo, lo mismo pasa si queremos comunicarnos en Japones, Chino, Aleman, Frnacés, etc.
+
+De igual manera en las computadoras, para que pueda INTERPRETAR las instrucciones escritas en alguno de estos lenguajes, debe tener instalado el COMPILADOR o INTERPRETE de dicho lenguaje (C, Java, Pascal, Groovy, Python, Elixir, etc.)
+
+Existen cientos de lenguajes de programación y cada día surgen nuevos o variantes de los ya existentes.
+
+Nuestro primer programa:
+
+HolaMundo
+Vamos a escribir un programa para que la computadora muestre en pantalla el mensaje "Hola Mundo!"
+
+Los lenguajes de programación constan de palabras reservadas, funciones(tambien llamados métodos) y operadores (+, -, /, *, $, %, etc.),  que sirven para indicar instrucciones muy especificas.
+Veamos la siguiente instrucción escrita en lenguaje Python:
+
+print("Hola Mundo!");
+
+Tenemos la palabra 'print' seguido por la frase "Hola Mundo!"
+La instrucción print le dice a la computadora que IMPRIMA en pantalla lo que se encuentre dentro de las comillas, en este caso la frase "Hola Mundo!"
+
+Esta instrucción la debemos guardar en un archivo, con extensión .py Como si se tratara de un archivo de word, MiArchivo.doc o de Excel MiArchivo.xls o una imagen MiFoto.jpg
+
+Para Ejecutar el programa, es decir para hacer que la computadora empiece a PROCESAR LAS INSTRUCCIONES que escribimos, debemos indicarle que vamos a utilizar el progarama 'python' para ejecutar el archivo 'MiArchivo.py' esto lo hacemos de la siguiente manera:
+
+python MiArchivo.py
+
+La computadora comenzará a ejecutar las líneas contenidas en dicho archivo.
+
+Ahora hagamos un programa para sumar dos números, el 3 y 7
+
+3 + 7
+
+Porque no funciona ?
+
+Necesitamos "imprimir" el resultado en pantalla, que comando nos permite imprimir en pantalla?
+
+print
+
+Listo ! ya nos muestra el resultado
+
+Los lenguajes de programación trabajan con datos, los cuales son clasificados en diferentes tipos de datos, por ejemplo: 
+* String (cadenas) 
+* Numbers (numeros)
+Los cuales a su vez podemos dividirlos en int (enteros) y float (con punto decimal)
+
+En nuestro primer programa utilizamos el tipo de dato String, el cual debe ser escrito utilizando comillas dobles " " o simples ' '
+
+print "Hola Mundo"
+
+print 'Hola Mundo'
+
+Los tipos de datos númericos, es decir los que representan cantidad númericas no utilizan comillas, por ejemplo en el programa que realiza la suma de 3 y 7:
+
+print 3 + 7
+
+Ya vimos que los Lenguajes de programación utilizan diferentes tipos de datos (Por ejemplo: Cadenas y números)
+
+OPERADORES
+En el ejemplo de la suma: 3 + 7 tenemos el signo +, el cúal indica que estamos realizando una suma, cuando la computadora comience a ejecutar las instrucciones contenidas en el programa y vea el símbolo +, sabrá que debe realizar una suma.
+
+Python al igual que todos los lenguajes de programación utiliza diferentes tipos de operadores, por ejemplo:
+- Operadores Arítmeticos 
+suma: +
+resta: -
+multiplicación: *
+división: /
+modulo: %
+exponente: **
+floor division: //
+
+- Operadores de comparación
+igual a: ==
+no es igual a: !=
+mayor que: >
+menor que: <
+mayor o igual que: >=
+menor o igual que: <=
+
+Operadores de asignación
+=
++=
+*=
+/=
+
+
+## Ejercicios realizar la suma, resta, multiplicación y división de los números 14 y 3, y mostrar el resultado en pantalla ##
+
+Hasta el momento hemos visto ejercicios con datos en duro, es decir valores fijos que nosostros esribimos en las instrucciones:
+
+print 3 + 4
+print 14 + 3
+print 14 - 3
+
+Pero los programas no funcionan así, los programas utilizan datos que van a variar entre una ejecución y otra, y que deben ser ingresados por el usuario, a esos datos cuyo valor va a estar variando se le conoce como VARIABLES, las variables almacenan un valor y pueden ser de tipo Strings y Numbers (Cadenas y números).
+
+Las variables se componen de: 
+-Tipo de dato de la variable (cadena o número)
+-Nombre de la variable
+-Valor de la variable
+
+para asignar un valor a una variable utilizamos el operador de asignación =
+
+Veamos una pequeña demostración:
+
+mensajeVariable = "Hola Mundo, te saludo utilizando una variable"
+print mensajeVariable
+
+En este ejemplo tenemos la variable que se llama 'mensajeVariable' y es de tipo String (cadena), y su valor es: "Hola Mundo, te saludo utilizando una variable"
+
+Veamos otro Ejemplo:
+
+numeroA = 3
+numeroB = 4
+resultado = numeroA + numeroB
+print resultado
+
+Tenemos 3 variables: numeroA, numeroB y resultado
+con esas variables podemos realizar cualquier operación que este soportado por el tipo de dato de la variable
+
+resultado = numeroA - numeroB #Realiza la resta del numeroA menos el numeroB
+
+resultado = numeroA * numeroB #Realiza la multiplicación del numeroA por el numeroB
+
+resultado = numeroA / numeroB #Realiza la division de numeroA entre numeroB
+
+Las anteriores operaciones se puede realizar porque las variables numeroA y numeroB son de tipo Numericas, si fueran de tipo cadena no se podrían realizar dichas operaciones
+
+numeroA = "hola"
+numeroB = 3
+
+resultado = numeroA / numeroB
+
+La anterior instrucción, no es soportada, porque no se puede dividir un número entre una cadena(string)
+
+
+Ahora veamos como solicitar al usuario el valor para cada una de las variables
+
+
+numeroA = input ("Ingresa primer numero: ")
+print "El numero ingresado es: " + str(numeroA)
+
+En el anterior ejemplo hacemos uso del método input() el cual nos permite solicitar al usuario información, una vez que el usuario ingresa la información está es almacenada en la variable numeroA.
+
+En la siguiente línea utilizamos el ya conocido comando print para imprimir la frase: "El numero ingresado es: " seguido de la variable que contiene el número que el usuario ingresó. En este caso el operador + pareciera que suma una cadena al numero almacenado en la variable numeroA, pero NO, en este caso el comportamiento del operador + es el de CONCATENAR cadenas.
+Para que numeroA sea tratado como cadena y no como número debemos convertir dicho número a cadena, para eso utilizamos la funcion str()
+
+
+simulador enigma: http://www.amenigma.com/
+
