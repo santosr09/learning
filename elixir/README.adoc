@@ -12,7 +12,7 @@ wget https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb && sudo 
 ----
 sudo apt-get update
 ----
-. Install the Erlang/OTP platform and all of its applications: 
+. Install the Erlang/OTP platform and all of its applications:
 [source, bash]
 ----
 sudo apt-get install esl-erlang
@@ -63,19 +63,22 @@ iex "name_of_file.exs"
 ----
 
 Reload a file(module); This will give us a warning that we are redifining a module; inside iex type:
->r(ModuleName)
+r(ModuleName)
 
 Execute a function; Inside iex type:
->ModuleName.function_name
+ModuleName.function_name
 
-
+=== DIRECTIVES
 Import a module (import itself is a function):
 import NAME_MODULE
 import IO
 
 Best practices when importing Module is to limit the functions we are going to use:
+[source, elixir]
+----
 import MODULE_NAME, <OPTION:> [<FUNCTION_NAME>, <#>]
-import IO, only: [puts: 1] 
+import IO, only: [puts: 1]
+----
 
 Kernel is imported into every module (CompileError:imported Kernel.inspect/1 conflicts with local function), we have a function with the same name that a function already imported in module Kernel
 
@@ -84,7 +87,7 @@ import Kernel, except: [inspect: 1]
 
 
 IMPORT A FILE:
->import_file("name_file.exs")
+import_file("name_file.exs")
 
 CREATE AN ALIAS FOR A MODULE:
 alias NAME.OF.THE.MODULE.NAME
@@ -104,26 +107,36 @@ require Integer
 DIRECTIVES(import, alias, require) can be Module scope or Function Scope
 
 
-DEFINE A MODULE:
+==== DEFINE A MODULE
+[source, elixir]
+----
 defmodule Sample.Enum do
     #Your tasks here!
 end
+----
 
 In functions Elixir return the last evaluated expresion:
 
-FUNCTION ARITY: Number of parameters
+==== FUNCTION ARITY: Number of parameters
 
-_Defining a function
+[source, elixir]
+----
+#Defining a function
 def first(list) do
    hd(list)
 end
+----
 
-_ARITY
+==== ARITY
+[source, elixir]
+----
 first/1
 {function name} / {number of parameters}
+----
 
-_Example of pattern matching
-
+==== Example of pattern matching
+[source, elixir]
+----
 def some_func(quantity, {_, _, price}) do
    quantity * price
 end
@@ -131,12 +144,15 @@ end
 def some_func(quantity, book) do
    quantity * elem(book, 2)
 end
+----
 
-_Both Functions perform the same operations, but first one is more legible.
+Both Functions perform the same operations, but first one is more legible.
 
-_GUARD CLAUSES
-_It's a kind of precondition validation for method invocation
+=== GUARD CLAUSES
+It's a kind of precondition validation for method invocation
 
+[source, elixir]
+----
 defmodule Sample.Calendar do
    def is_leap_year(year) when rem(year, 400) == 0, do: true
    def is leap_year(year) when rem(year, 100) == 0, do: true
@@ -144,92 +160,120 @@ defmodule Sample.Calendar do
    def is_leap_year(year), do: false
 
 end
+----
 
-_ERROR:
-iex(8)> r(Sample.Calendar)     
+==== ERROR:
+[source, elixir]
+----
+iex(8)> r(Sample.Calendar)
 ** (ArgumentError) could not load nor find module: Sample.Calendar
-_SOLUTION:
-_CARGAR EL ARCHIVO EN IEX:
+----
+SOLUTION:
+CARGAR EL ARCHIVO EN IEX:
 iex ("file_name.exs")
 
-_Errores de Sintaxys evitan que se cargue el archivo
+Errores de Sintaxys evitan que se cargue el archivo
 ** (SyntaxError) calendar.exs:5: keyword argument must be followed by space after: do:
 
 
-_DEFAULT_PARAMETERS
-_We can specify default values for parameters, if user don't provide a value for that parameter, default value will be used
+=== DEFAULT_PARAMETERS
+We can specify default values for parameters, if user don't provide a value for that parameter, default value will be used
 
-_SYNTAX: We use '\\' near to the variable name, to define a default value
-_EXAMPLE:
-
+SYNTAX: We use '\\' near to the variable name, to define a default value
+EXAMPLE:
+[source, elixir]
+----
 def add(list, val \\ 0) do
    [val | list]
 end
+----
 
-_Multiple clauses with deafult values should define a function head with the deafult values:
+Multiple clauses with deafult values should define a function head with the deafult values:
 
+[source, elixir]
+----
 def first(list, val \\ nil)  #This is the head function defining the default value for first/2 function
+
 
 def first([head | _], _), do: head
 def first([], val), do: val
+----
 
-_PRIVATE_FUNCTIONS
-_SYNTAX: We use 'defp' to define a private function
+=== PRIVATE_FUNCTIONS
+SYNTAX: We use 'defp' to define a private function
 
-_FUNCTIONS AS FIRST CLASS CITIZENS
+== FUNCTIONS AS FIRST CLASS CITIZENS
 Supports passing functions as arguments to other functions, returning them as the values from other functions, and assigning them to variables
 
+[source, elixir]
+----
 #We pass the square function to map function
 Enum.map(list, &Sample.Utils.square/1)
+----
 
+The amperson operator '&' is the capture operator, is a reference to the function, we especify the Arity of the function, this tells Elixir wich version of the function to use.
 
-_The amperson operator '&' is the capture operator, is a reference to the function, we especify the Arity of the function, this tells Elixir wich version of the function to use.
+=== ANONYMOUS FUNCTION
 
-_ANONYMOUS FUNCTION
-
-_Syntax:
+Syntax:
+[source, elixir]
+----
 #Everything between > and end is the value's function
 fn(x) -> x*x end
+----
 
-_Example:
+Example:
+[source, elixir]
+----
 Enum.map(list, fn(x) -> x*x end)
 
 #Tha anonymous function can take multiple parameters:
 fn(x, acc) -> acc + x end
+----
 
-_Example:
+Example:
+[source, elixir]
+----
 Enum.reduce(list, 0, fn(x, acc) -> acc + x end)
+----
 
 
-_Syntax usgin the capture syntax:
+Syntax usgin the capture syntax:
+[source, elixir]
+----
 #&1 refers to first parameter
 Enum.map(list, &(&1 * &1))
 
 #&1 refers to first parameter, &2 refers to second parameter
 Enum.reduce(list, 0, &(&1 + &2))
+----
 
-_To compile in Elixir
+=== Compiling
+To compile in Elixir
+[source, elixir]
+----
 c("name_of_file.exs")
 
 Sample.Utils.custom_func(1, fn(x) -> IO.puts(x) end)1
+----
 
-=========================================================
-=========================================================
 
-CONTROL FLOW
+== CONTROL FLOW
 
 Branching logic
 If
 Cond
 Case
 
-Iterating Over Data
+=== Iterating Over Data
 Elixit doesn't have Loops (for, while, etc.)
 Elixir uses RECURSION
 
 IF statement:
 
 Example:
+[source, elixir]
+----
 def first(list) do
    if(length(list) == 0) do
       nil
@@ -237,8 +281,9 @@ def first(list) do
       hd[list]
    end
 end
+----
 
-Cond Operator:
+=== Cond Operator:
 Example:
 [source, elixir]
 ----
@@ -255,7 +300,7 @@ Example:
     end
 ----
 
-Case statement:
+=== Case statement:
 
 Examples:
 [source, elixir]
@@ -275,7 +320,7 @@ end
 [source, elixir]
 ----
     def describe_date(date) do
-    #case using pattern matching: 
+    #case using pattern matching:
         case date do
             {1, _, _} -> "Brand new month!"
             {25, 12, _} -> "Merry Christmas"
@@ -296,14 +341,14 @@ end
     end
 ----
 
-RECURSION
-To understand what recursion is, you must first understand recursion.    
+== RECURSION
+To understand what recursion is, you must first understand recursion.
 
-TAIL RECURSION:
+=== TAIL RECURSION:
 Tail Recursion only happens when the last operation a function performs is recursion.
 Tail Recursion avoid overflowing the stack
 
-BODY RECURSION: 
+=== BODY RECURSION:
 
 
 == ELIXIR ECOSYSTEM
@@ -319,6 +364,15 @@ mix help
 
 === MIX CREATE AN APPLICATION
 mix new application_tweet --sup
+
+cd <move inside the folder created>
+
+mix compile
+
+Once compiled, init a iex session:
+
+iex -S mix
+
 
 === To get dependencies
 mix deps.get
@@ -345,6 +399,9 @@ def get_strings_to_tweet(path) do
         #|> Enum.filter(fn str -> String.length(str) <= 140 end)
 end
 ----
+
+=== Run tests
+mix test
 
 
 

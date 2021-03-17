@@ -1,4 +1,4 @@
-defmodule AppTweet.FileReader do
+defmodule ApplicationTweet.FileReader do
     def get_strings_to_tweet(path) do
         File.read!(path)
             |> String.split("\n") #Pipe Operator |>
