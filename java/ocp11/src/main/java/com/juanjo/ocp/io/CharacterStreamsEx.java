@@ -1,9 +1,6 @@
 package com.juanjo.ocp.io;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class CharacterStreamsEx {
 	
@@ -13,6 +10,17 @@ public class CharacterStreamsEx {
 			int b;
 			while ((b = reader.read()) != -1) {
 				writer.write(b);
+			}
+		}
+	}
+	
+	public void copyTextFileWithBuffer(File src, File dest) throws IOException {
+		try (var reader = new BufferedReader(new FileReader (src));
+				 var writer = new BufferedWriter( new FileWriter(dest))) {
+			String s;
+			while ((s = reader.readLine()) != null) {
+				writer.write(s);
+				writer.newLine();
 			}
 		}
 	}

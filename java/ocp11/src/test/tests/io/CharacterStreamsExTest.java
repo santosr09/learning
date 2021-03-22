@@ -31,4 +31,15 @@ public class CharacterStreamsExTest {
 		System.out.println("copyTextFile() Time elapsed: " + timeElapsed + " Milliseconds");
 	}
 	
+	@Test
+	public void copyTextFileWithBuffer() throws IOException{
+		File srcFile = new File("src/main/resources/beautiful_day.txt");
+		File destFile = new File("src/test/resources/beatutiful_day_copy_buffer.txt");
+		Instant start = Instant.now();
+		obj.copyTextFileWithBuffer(srcFile, destFile);
+		Instant finish = Instant.now();
+		long timeElapsed = Duration.between(start, finish).toMillis();
+		System.out.println("copyTextFileWithBuffer() Time elapsed: " + timeElapsed + " Milliseconds");
+	}
+	
 }
