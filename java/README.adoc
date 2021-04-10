@@ -205,4 +205,44 @@ If the application is a monolothic with a lot of dependencies between components
 
 
 
+TODO
+
+why is immutability is important?
+What are the benefits of stateless?
+How to implement Sateless?
+Favor composition over inheritance
+
+
+Diamond operator (7)
+Try with resources (7)
+Future (7)
+Optional (8)
+
+
+
+asciidoc syntax reference:
+https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/
+
+
+bold *constrained* & **un**constrained
+
+italic _constrained_ & __un__constrained
+
+bold italic *_constrained_* & **__un__**constrained
+
+monospace `constrained` & ``un``constrained
+
+monospace bold `*constrained*` & ``**un**``constrained
+
+monospace italic `_constrained_` & ``__un__``constrained
+
+monospace bold italic `*_constrained_*` & ``**__un__**``constrained
+
+=== Convert java project to maven
+==== Add Maven support﻿ 
+* Open an existing project, for example, a Java project. 
+* In the Project tool window, right-click your project and select Add Framework Support. 
+* In the dialog that opens, select Maven from the options on the left and click OK. ...
+* Open the generated POM and specify a groupId .
+
 
