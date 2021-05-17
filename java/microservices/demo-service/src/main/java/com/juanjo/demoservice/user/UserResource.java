@@ -1,6 +1,7 @@
 package com.juanjo.demoservice.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Locale;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -19,6 +21,14 @@ public class UserResource {
 	
 	@Autowired
 	private UserDaoService service;
+	
+	@Autowired
+	private MessageSource messageSource;
+	
+	@GetMapping(path = "/greetings")
+	public String hello(@RequestHeader(name = "Accept-Language", required = false) Locale locale) {
+		return messageSource.getMessage("good.morning.message", null, locale);
+	}
 	
 	@GetMapping("/users")
 	public List<User> retrieveAllUsers() {
