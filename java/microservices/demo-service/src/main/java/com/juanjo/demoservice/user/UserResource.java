@@ -2,6 +2,7 @@ package com.juanjo.demoservice.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +27,12 @@ public class UserResource {
 	private MessageSource messageSource;
 	
 	@GetMapping(path = "/greetings")
-	public String hello(@RequestHeader(name = "Accept-Language", required = false) Locale locale) {
-		return messageSource.getMessage("good.morning.message", null, locale);
+	public String hello() {
+		
+		//Locale not required configured by SpringBoot
+		//public String hello(@RequestHeader(name = "Accept-Language", required = false) Locale locale) {
+		
+			return messageSource.getMessage("good.morning.message", null, LocaleContextHolder.getLocale());
 	}
 	
 	@GetMapping("/users")
