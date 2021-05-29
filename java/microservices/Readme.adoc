@@ -1,0 +1,61 @@
+= Spring Cloud
+Provides tools for developers to quickly  build some fo the common patterns in distributed systems: eg. configuration management, service delivery, circuit breakers, intelligent routing, micro-proxy, control bus, one-time tokens, global locks, leadership election, distributed sessions, cluster state.
+
+
+=== Spring Cloud Config Server
+Use a Git repository to expose the configuration of each ms
+
+=== Dynamic Scale up and Down
+* Naming Server(Eureka)
+* Ribbon, Spring Cloud LoadBalancer (Client Side Load Balancing)
+* Feign (Easier REST Clients)
+
+Distribute the Load between all the instances of microservices.
+
+Ribbon Load Balancing
+Ribbon -> NamingServer
+
+=== VISIBILITY AND MONITORING
+* Zipkin Distributed Tracing
+* Netflix API Gateway
+
+=== FAULT TOLERANCE
+* Hystrix, Resilience4j
+
+== MICROSERVICES COMPONENTS - EXAMPLE PROJECT
+PORTS
+[cols="1,1"]
+|===
+|Limits Service 
+|===
+|8080,8081
+|===
+
+Spring Cloud Config Server : 8888
+Currency Exchange Service 8000, 8001, 8002
+Currency Conversion Service : 8100 8101 8102
+Netflix Eureka Naming Server : 8761
+Netflix Zuul API Gateway Server : 8765
+Zipkin Distributed Tracing Server : 9411
+
+
+== MS- EXAMPLE PROJECT
+
+=== Spring Initializer
+Dependencies:
+Spring Web
+Spring Boot DevTools
+Spring Boot Actuator
+Config Client
+
+
+=== Spring config
+In the application.properties add this:
+spring.config.import=optional:configserver:http://localhost:8888
+
+=== Limits service
+add Limits in the properties
+limits-service.minimum=2
+
+create the Configuration class to get the values from the properties
+
