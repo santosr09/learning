@@ -107,5 +107,216 @@ public class SpringCloudConfigServerApplication {
 Go to URL:
 http://localhost:8888/limits-service/default
 
+IMPORTANT: The name in the URL must match the name of the properties file in the Git repository. The Path declared in the spring.cloud.config.server.git.uri=file:// shouldn't include the name of the file.
+
+
+== CONNECT LIMITS SERVICE TO SPRING CLOUD CONFIG SERVER
+
+spring-cloud-starter-config
+It comes from Sping Initializer dependency: "Config Client" (Spring Cloud Config)
+This dependency helps to talk to the config server
+
+It's important to configure the name of the application, What configuration in the cloud-config-server should this application make use of?
+
+IMPORTANT: The name of the application configured in the service must match the name of the properties in the repository
+
+Example:
+In the limits-service project we have:
+spring.application.name=limits-service
+
+In the repository there is a file qith name:
+limits-service.properties
+
+== CONFIGURING MULTIPLE PROFILES FOR LIMITS SERVICE
+
+Create differents files for each environment in the repository:
+limits-service-dev.properties
+limits-service-qa.properties
+limits-service.properties (default)
+
+Go to URL:
+http://localhost:8888/limits-service/default
+http://localhost:8888/limits-service/dev
+http://localhost:8888/limits-service/qa
+
+
+And to configure which environment the application should use from config-server, you should configure the properties in the application project:
+spring.profiles.active=dev
+
+NOTE: If the profile is still 'default' maybe an additional config could be reuqired: spring.cloud.config.profile=dev
+
+== DEBUGGING GUIDE
+
+https://github.com/in28minutes/spring-microservices-v2/blob/main/03.microservices/01-step-by-step-changes/microservices-v2-1.md#spring-cloud-config-server---steps-01-to-08
+
+
+== OVERVIEW OF MICROSERVICES TO BE DEVELOPED
+CURRENCY EXCHANGE MICROSERVICE
+What is the exchange rate of one currency in another?
+
+
+CURRENCY CONVERSION MICROSERVICE
+Convert 10 USD into INR
+
+
+Currency Conversion Microzervice -> Currency Exchange Microservice
+									|
+									DataBase
+
+
+== CURRENCY EXCHANGE SERVICE
+currency-exchange-service
+Dependencies:
+DevTools
+Actuator
+Web
+ConfgiClient
+
+Add this line to the properties file, is required in order to startup:
+spring.config.import=optional:configserver:http://localhost:8888
+And additional parameters:
+spring.application.name=currency-exchange
+server.port=8000
+
+=== URL AND RESPONSE STRUCTURE
+
+URL
+http://localhost:8000/currency-exchange/from/USD/to/INR
+Response Structure
+[source,json]
+----
+{
+   "id":10001,
+   "from":"USD",
+   "to":"INR",
+   "conversionMultiple":65.00,
+   "environment":"8000 instance-id"
+}
+----
+
+
+== SETTING UP DYNAMIC PORT IN THE RESPONSE
+
+Load Balancing
+
+									Currency Conversion Microservice
+									|
+									Load Balancer -> Naming Server
+									|
+				|					|											|
+Currency Exchange - Instance 1  |  Currency Exchange - Instance 2  |  Currency Exchange - Instance 3
+
+
+Add the field 'environment' to the CurrencyExchange bean
+In this new field 'environment' we are going to set the value of the port.
+
+Add the Environment Interface to the controller:
+import org.springframework.core.env.Environment;
+
+@RestController
+public class CurrencyExchangeController {
+
+	@Autowired
+	private Environment environment;
+
+Then:
+[source,java]
+----
+	String port = environment.getProperty("local.server.port");
+	currencyExchange.setEnvironment(port);
+----
+
+
+== CONFIGURE JPA AND INITIALIZED DATA
+
+Add the Dependency:
+
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-data-jpa</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>com.h2database</groupId>
+		<artifactId>h2</artifactId>
+	</dependency>
+
+configure in application properties:
+spring.jpa.show-sql=true
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.h2.console.enabled=true
+
+
+Create the JPA entity:
+@Entity
+public class CurrencyExchange {
+
+	@Id
+	private Long id;
+
+	@Column(name="currency_from")
+	private String from;
+
+	@Column(name="currency_to")
+	private String to;
+
+
+Insert data into the new created table, create the file data.sql in the resources:
+insert into CURRENCY_EXCHANGE(id, currency_from, currency_to, conversion_multiple, environment)
+values(10001, 'USD', 'INR', 65, '');
+insert into CURRENCY_EXCHANGE(id, currency_from, currency_to, conversion_multiple, environment)
+values(10002, 'EUR', 'INR', 75, '');
+insert into CURRENCY_EXCHANGE(id, currency_from, currency_to, conversion_multiple, environment)
+values(10003, 'AUD', 'INR', 25, '');
+
+
+DEFER THE EXECUTION OF DATA, Modify the properties file:
+spring.jpa.defer-datasource-initialization=true
+
+
+=== Create JPA Repository
+
+[source,java]
+----
+public interface CurrencyExchangeRepository
+		extends JpaRepository<CurrencyExchange, Long> {
+	CurrencyExchange findByFromAndTo(String from, String to);
+}
+----
+
+
+call the method in the controller:
+CurrencyExchange currencyExchange = repository.findByFromAndTo(from, to);
+
+
+== CREATE THE CURRENCY CONVERSION SERVICE
+Dependencies:
+DevTools
+Actuator
+Web
+ConfgiClient  -> spring.config.import=optional:configserver:http://localhost:8888
+
+
+First configurations in application.properties:
+spring.application.name=currency-conversion
+server.port=8100
+spring.config.import=optional:configserver:http://localhost:8888
+
+
+=== URL and Response Structure
+URL
+http://localhost:8100/currency-conversion/from/USD/to/INR/quantity/10
+
+Response Structure
+{
+  "id": 10001,
+  "from": "USD",
+  "to": "INR",
+  "conversionMultiple": 65.00,
+  "quantity": 10,
+  "totalCalculatedAmount": 650.00,
+  "environment": "8000 instance-id"
+}
+
 
 
