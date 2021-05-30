@@ -39,7 +39,7 @@ Netflix Zuul API Gateway Server : 8765
 Zipkin Distributed Tracing Server : 9411
 
 
-== MS- EXAMPLE PROJECT
+== MS- EXAMPLE PROJECT: LIMITS SERVICE
 
 === Spring Initializer
 Dependencies:
@@ -58,4 +58,54 @@ add Limits in the properties
 limits-service.minimum=2
 
 create the Configuration class to get the values from the properties
+
+
+== CENTRALIZED CONFIGURATION
+=== SPRING CLOUD CONFIG SERVER
+Dependencies:
+DevTools
+Config Server
+
+Configure the server port to run the app, in the application.properties:
+server.port=8888
+
+As a good practice give names that describe the propuse
+spring.application.name=spring-cloud-config-server
+
+== GIT REPOSITORY
+
+Intall Git client in local machine
+
+create the folder:
+git-localconfig-repo
+
+Initialize the local repo:
+git init
+
+NOTE:
+Debugging problems with Spring Cloud Config Server - V2
+https://github.com/in28minutes/spring-microservices-v2/blob/main/03.microservices/01-step-by-step-changes/microservices-v2-1.md#spring-cloud-config-server---steps-01-to-08
+
+
+Create the file : limits-service.properties in the new local git repo. And add it to the stage (commit)
+The path of the such file is like:
+/home/juanjo/dev/github/learning/java/microservices/git-localconfig-repo/limits-service.properties
+
+
+Config the local git folder in the application.properties
+spring.cloud.config.server.git.uri=file:///home/juanjo/dev/github/learning/java/microservices/git-localconfig-repo
+WINDOWS EXAMPLE: file:///C:/Users/dev/github/learning/java/microservices/git-localconfig-repo
+
+Enable the ConfigServer in the Configuration class
+[source,java]
+----
+@EnableConfigServer
+@SpringBootApplication
+public class SpringCloudConfigServerApplication {
+----
+
+Go to URL:
+http://localhost:8888/limits-service/default
+
+
 
