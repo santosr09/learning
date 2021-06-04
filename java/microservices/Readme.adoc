@@ -340,3 +340,25 @@ import org.springframework.web.client.RestTemplate;
 		return new CurrencyConversion(responseEntity.getBody(), quantity);
 
 
+== USING FEIGN REST CLIENT FOR SERVICE INVOCATION
+In the conversion service, Add the dependency:
+		<!-- Feign -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+
+Now create a proxy:
+@FeignClient(name="currency-exchange", url="localhost:8000")
+public interface CurrencyExchangeProxy {
+
+	@GetMapping("/currency-exchange/from/{from}/to/{to}")
+	public CurrencyConversion retrieveExchangeValue(
+			@PathVariable String from,
+			@PathVariable String to);
+
+
+Use the proxy on the controller:
+		return new CurrencyConversion(proxy.retrieveExchangeValue(from, to), quantity);
+
+

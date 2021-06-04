@@ -1,5 +1,6 @@
 package com.juanjo.currencyconversionservice;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,9 @@ import java.util.HashMap;
 
 @RestController
 public class CurrencyConversionController {
+	
+	@Autowired
+	private CurrencyExchangeProxy proxy;
 	
 	@GetMapping("/currency-conversion/from/{from}/to/{to}/quantity/{quantity}")
 	public CurrencyConversion calculateCurrencyConversion(@PathVariable String from,
@@ -24,8 +28,17 @@ public class CurrencyConversionController {
 				"http://localhost:8000/currency-exchange/from/{from}/to/{to}",
 				CurrencyConversion.class, uriVariables);
 		return new CurrencyConversion(responseEntity.getBody(), quantity);
-		
-		//return new CurrencyConversion();
+	}
+	
+	@GetMapping("/currency-conversion-feign/from/{from}/to/{to}/quantity/{quantity}")
+	public CurrencyConversion calculateCurrencyConversionFeign(@PathVariable String from,
+																												@PathVariable String to,
+																												@PathVariable BigDecimal quantity) {
+		HashMap<String, String> uriVariables = new HashMap<>();
+		uriVariables.put("from", from);
+		uriVariables.put("to", to);
+
+		return new CurrencyConversion(proxy.retrieveExchangeValue(from, to), quantity);
 	}
 	
 }
