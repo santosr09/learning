@@ -14,6 +14,16 @@ public class CurrencyConversion {
 	public CurrencyConversion() {
 	}
 	
+	public CurrencyConversion(CurrencyConversion obj, BigDecimal quantity) {
+		this.id = obj.getId();
+		this.from = obj.getFrom();
+		this.to = obj.getTo();
+		this.conversionMultiple = obj.getConversionMultiple();
+		this.quantity = quantity;
+		this.totalCalculatedAmount = conversionMultiple.multiply(quantity);
+		this.environment = obj.getEnvironment();
+	}
+	
 	public CurrencyConversion(Long id, String from, String to, BigDecimal conversionMultiple, BigDecimal quantity, BigDecimal totalCalculatedAmount, String environment) {
 		this.id = id;
 		this.from = from;
