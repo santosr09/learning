@@ -362,3 +362,90 @@ Use the proxy on the controller:
 		return new CurrencyConversion(proxy.retrieveExchangeValue(from, to), quantity);
 
 
+== NAMING SERVER and Setting up EUREKA Naming Server
+Load Balancer -> Naming Server
+Service Registry or Naming Server: All instances of microservices will be registered in the Service Registry
+
+Create a new Spring boot project:
+(naming-server)
+Dependencies:
+DevTools
+Actuator
+Eureka Server
+
+
+Add the annotation configuration:
+@EnableEurekaServer
+@SpringBootApplication
+public class NamingServerApplication {
+
+Configure the app name and port:
+spring.application.name=naming-server
+server.port=8761
+
+To avoid register the app with itself(the Eureka register):
+eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false
+
+Launch the app and go to the url:
+http://localhost:8761/
+
+=== Debugging problems with Eureka:
+
+Top Recommendation From Debugging Guide:
+
+Give these settings a try individually in application.properties of all microservices (currency-exchange, currency-conversion) to see if they help
+
+eureka.instance.prefer-ip-address=true
+OR
+
+eureka.instance.hostname=localhost
+
+=== Connecting Currency Conversion & Currency Exchange
+
+In the pom.xml of both services(Conversion and Exchange) add this dependency:
+
+		<!-- Naming Server - Eureka -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+
+And configure the serviceUrl in both services, Exchange and conversion service:
+application.properties:
+eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka
+
+== LOAD BALANCING With Eureka, Feign & Spring Cloud LoadBalancer
+
+Load Balancing
+
+									Currency Conversion Microservice
+									|
+									Load Balancer -> Naming Server
+									|
+				|					|											|
+Currency Exchange - Instance 1  |  Currency Exchange - Instance 2  |  Currency Exchange - Instance 3
+
+Just configure the proxy previously created, by removing the url parameter and only  provide the name of the service, this name is registered in Erukea server. Eureka automatically will balance the request to the many instances of Exchange service.
+
+
+@FeignClient(name="currency-exchange")
+public interface CurrencyExchangeProxy {
+
+Now start a second instance of Exchange Service, and whe load will be balanced between both instances:
+
+http://localhost:8100/currency-conversion-feign/from/USD/to/INR/quantity/10
+
+
+  "environment": "8000"
+}
+and
+  "environment": "8001"
+}
+
+IMPORTANT: CLIENT SIDE LOAD BALANCING is demostrated with this example, using a Proxy(Feign) in the Exchange service that talk with Eureka(naming Server and load balancing)
+
+The netflix-eureka-client add a load balancer in the dependency
+
+
+
