@@ -448,4 +448,63 @@ IMPORTANT: CLIENT SIDE LOAD BALANCING is demostrated with this example, using a 
 The netflix-eureka-client add a load balancer in the dependency
 
 
+== API GATEWAY
+How to proxy trough the Gateway to other ms using Eureka
 
+Setting up Spring Cloud API Gateway
+
+Create a project: api-gateway
+Dependencies:
+DevTools
+Actuator
+Eureka Discovery Client
+Gateway
+
+configure application name and port server:
+*_spring.application.name=api-gateway
+server.port=8765_*
+
+and register it in the Naming Server(Eureka):
+*_eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka_*
+
+
+=== ENABLING DISCOVERY LOCATOR WITH EUREKA FOR SPRING CLOUD GATEWAY
+
+The name with the Currency Exchange Service is registered in the Naming Server(Eureka):
+CURRENCY-EXCHANGE
+
+Path to the Currency Exchange Service:
+/currency-exchange/from/USD/to/INR
+
+
+API GATEWAY:
+_http://localhost:8765/CURRENCY-EXCHANGE/currency-exchange/from/USD/to/INR_
+
+Por default discovery.locator esta deshabilitado, para funcionar con Eureka se debe habilitar, esto es posible gracias a la depencencia:
+*_spring-cloud-starter-netflix-eureka-client
+spring.cloud.gateway.discovery.locator.enabled=true_*
+
+Now is it possible to call any service registered in Eureka, trough the API-Gateway.
+
+
+Calling the services trough the API Gateway:
+_http://localhost:8765/CURRENCY-EXCHANGE/currency-exchange/from/USD/to/INR
+http://localhost:8765/CURRENCY-CONVERSION/currency-conversion/from/USD/to/INR/quantity/10
+http://localhost:8765/CURRENCY-CONVERSION/currency-conversion-feign/from/USD/to/INR/quantity/10_
+
+To change the Upper Case service name to lower case, we need to add this to the properties:
+*_spring.cloud.gateway.discovery.locator.lowerCaseServiceId=true_*
+
+After enabling: spring.cloud.gateway.discovery.locator.lowerCaseServiceId=true
+
+_http://localhost:8765/currency-exchange/currency-exchange/from/USD/to/INR
+http://localhost:8765/currency-conversion/currency-conversion/from/USD/to/INR/quantity/10
+http://localhost:8765/currency-conversion/currency-conversion-feign/from/USD/to/INR/quantity/10_
+
+
+If you want to implement Authentication, it could be implemented in the API Gateway
+
+NOTE: Some student reported success when using lower-case-service-id instead of spring.cloud.gateway.discovery.locator.lowerCaseServiceId. See if it helps!
+
+spring.cloud.gateway.discovery.locator.enabled=true
+spring.cloud.gateway.discovery.locator.lower-case-service-id=true
