@@ -5,13 +5,13 @@ import java.util.function.Consumer;
 
 public class ConsumerExample {
 	
-	static Consumer<Student> namePrinter = (student) -> System.out.println("Student: " + student.getName());
+	static Consumer<Student> namePrinter = (student) -> System.out.print("Student: " + student.getName());
+	static Consumer<Student> activitiesPrinter = (student) -> System.out.println(" | activites: " + student.getActivities());
 	
 	public static void main(String[] args) {
 		
 		List<Student> students = StudentDataBase.getAllStudents();
-		
-		students.forEach(namePrinter);
+		students.forEach(namePrinter.andThen(activitiesPrinter)); //Consumer chaining
 		
 	}
 }
