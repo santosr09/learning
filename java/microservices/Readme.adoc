@@ -595,5 +595,23 @@ public class LoggingFilter implements GlobalFilter {
 ** Path Rewriting
 
 
+== CIRCUIT BREAKER
+
+* What if one services is down or slow?
+** Impacts entire chain
+Can we return a fallback response if a service is down?
+Can we implement a Circuit Breaker pattern to reduce load?
+Can we retrive requests in case of temporary failures?
+Can we implement rate limiting?
+
+Solution: CIRCUIT BREAKER FRAMEWORK - RESILIENCE4J
+
+=== RESILIENCE4J, inpired by Netflix Hystrix
+
+
+
+
+
+
 
 
