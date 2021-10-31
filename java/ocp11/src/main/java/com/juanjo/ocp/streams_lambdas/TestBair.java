@@ -1,4 +1,4 @@
-package com.juanjo.ocp.streams;
+package com.juanjo.ocp.streams_lambdas;
 
 public class TestBair {
 	
