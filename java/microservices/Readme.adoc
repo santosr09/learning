@@ -24,10 +24,8 @@ Ribbon -> NamingServer
 
 == MICROSERVICES COMPONENTS - EXAMPLE PROJECT
 PORTS
-[cols="1,1"]
 |===
-|Limits Service 
-|===
+|Limits Service
 |8080,8081
 |===
 
