@@ -192,6 +192,34 @@ Usages of Lambda
 * FUNCTION
 * SUPPLIER
 
+=== Method Reference
+* Simplify the implementation of Functional Interfaces
+* Shortcut for writing the Lambda Expressions.
+* Refer a method in a class.
+
+Syntax:
+ClassName::instance-methodName
+ClassName::static-methodName
+Instance::methodName
+
+Example
+Using Lambda
+Function<String, String> toUppeCaseLambda = (s) -> s.toUpperCase();
+
+Using Method Reference
+Function<String, String> toUppeCaseMethod = String::toUpperCase;
+
+Constructor Reference
+It can only be used in the context of Functional Interfaces.
+Syntax
+  Classname::new
+
+Example
+  Supplier<Student> studentSup = Student::new;
+  //OK in the context of Functional Interfaces
+
+  Student student = Student::new;
+  //INCORRECT Not in the context of Functional Interfaces
 
 
 == *JAVA 9...12*
