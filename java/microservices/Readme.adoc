@@ -340,13 +340,18 @@ import org.springframework.web.client.RestTemplate;
 
 == USING FEIGN REST CLIENT FOR SERVICE INVOCATION
 In the conversion service, Add the dependency:
+[source,java]
+----
 		<!-- Feign -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
+----
 
 Now create a proxy:
+[source,java]
+----
 @FeignClient(name="currency-exchange", url="localhost:8000")
 public interface CurrencyExchangeProxy {
 
@@ -354,6 +359,7 @@ public interface CurrencyExchangeProxy {
 	public CurrencyConversion retrieveExchangeValue(
 			@PathVariable String from,
 			@PathVariable String to);
+----
 
 
 Use the proxy on the controller:
