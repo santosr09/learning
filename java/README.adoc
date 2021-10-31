@@ -147,6 +147,52 @@ Closed Resource_First
 
 == Optional
 
+== *JAVA 8*
+
+=== Functional Programming
+* Embraces creating immmutable objects
+* More concise and reusable code
+* Using functions/methods as first class citizens.
+* Write code using DECLARATIVE APPROACH.
+
+=== Imperative Style of programming
+* Focuses on HOW TO perform the operations
+* Embraces Object mutability
+* This style of programming lists the step by step of instructions on how to achieve an objective
+* We write the code on what needs to be done in each step.
+* Imperative style is used with classic OBJECT ORIENTED PROGRAMMING.
+
+=== Declarative style of programming
+* Focuses on what is the result you want
+* Embraces Object immutability.
+* Analogous to SQL
+* Use the functions that are already part of the library to achieve an objective.
+* FUNCTIONAL PROGRAMMING uses the concept of declarative programming.
+
+=== What is Lambda Expression?
+* It's Equivalent to a function/method without a name.
+* Also referred as Anonymous functions.
+** Method parameters
+** Method body
+** Return type
+* Lambdas are not tied to any class like regular method
+* Can be assigned to a variable and passed around
+
+Syntax:
+  () -> { }
+
+Usages of Lambda
+* Mainly used to implement Functional Interfaces(SAM: Single Abstract Method)
+* Annotation: @FunctionalInterface(Java 8)
+
+=== Functional Interfaces
+* Has exactly one abstract method.
+* CONSUMER
+* PREDICATE
+* FUNCTION
+* SUPPLIER
+
+
 
 == *JAVA 9...12*
 
