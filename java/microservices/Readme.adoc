@@ -645,6 +645,8 @@ public class CircuitBreakerController {
 	}
 ----
 
+
+==== Configuring *retry*
 [source,java]
 ----
 	@GetMapping("/failing-sample-api")
@@ -689,3 +691,12 @@ resilience4j.retry.instances.<INSTANCE's NAME>.waitDuration=1s
 
 Configuring ExponentialBackoff	(Each subsequent retry will take longer and longer):
 resilience4j.retry.instances.sample-api.enableExponentialBackoff=true
+
+==== Configuring *CircuitBreaker*
+
+
+Command for CURL:
+watch curl http://localhost:8001/failing-sample-api
+
+watch curl -n 0.1 http://localhost:8001/failing-sample-api
+_-n 0.1_ means send a request every 0.1 seconds = 10 request per second
