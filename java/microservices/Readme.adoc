@@ -25,7 +25,7 @@ Ribbon -> NamingServer
 == MICROSERVICES COMPONENTS - EXAMPLE PROJECT
 PORTS
 |===
-|Limits Service
+|'Limits Service'
 |8080,8081
 |===
 
@@ -37,7 +37,7 @@ Netflix Zuul API Gateway Server : 8765
 Zipkin Distributed Tracing Server : 9411
 
 
-== MS- EXAMPLE PROJECT: LIMITS SERVICE
+== MS- EXAMPLE PROJECT: 'LIMITS SERVICE'
 
 === Spring Initializer
 Dependencies:
@@ -108,7 +108,7 @@ http://localhost:8888/limits-service/default
 IMPORTANT: The name in the URL must match the name of the properties file in the Git repository. The Path declared in the spring.cloud.config.server.git.uri=file:// shouldn't include the name of the file.
 
 
-== CONNECT LIMITS SERVICE TO SPRING CLOUD CONFIG SERVER
+== CONNECT 'LIMITS SERVICE' TO SPRING CLOUD CONFIG SERVER
 
 spring-cloud-starter-config
 It comes from Sping Initializer dependency: "Config Client" (Spring Cloud Config)
@@ -125,7 +125,7 @@ spring.application.name=limits-service
 In the repository there is a file qith name:
 limits-service.properties
 
-== CONFIGURING MULTIPLE PROFILES FOR LIMITS SERVICE
+== CONFIGURING MULTIPLE PROFILES FOR 'LIMITS SERVICE'
 
 Create differents files for each environment in the repository:
 limits-service-dev.properties
@@ -493,8 +493,11 @@ Now is it possible to call any service registered in Eureka, trough the API-Gate
 
 Calling the services trough the API Gateway:
 _http://localhost:8765/CURRENCY-EXCHANGE/currency-exchange/from/USD/to/INR
+
 http://localhost:8765/CURRENCY-CONVERSION/currency-conversion/from/USD/to/INR/quantity/10
+
 http://localhost:8765/CURRENCY-CONVERSION/currency-conversion-feign/from/USD/to/INR/quantity/10_
+
 
 To change the Upper Case service name to lower case, we need to add this to the properties:
 *_spring.cloud.gateway.discovery.locator.lowerCaseServiceId=true_*
@@ -502,7 +505,9 @@ To change the Upper Case service name to lower case, we need to add this to the 
 After enabling: spring.cloud.gateway.discovery.locator.lowerCaseServiceId=true
 
 _http://localhost:8765/currency-exchange/currency-exchange/from/USD/to/INR
+
 http://localhost:8765/currency-conversion/currency-conversion/from/USD/to/INR/quantity/10
+
 http://localhost:8765/currency-conversion/currency-conversion-feign/from/USD/to/INR/quantity/10_
 
 
@@ -612,10 +617,75 @@ Solution: CIRCUIT BREAKER FRAMEWORK - RESILIENCE4J
 
 === RESILIENCE4J, inpired by Netflix Hystrix
 
+Dependencies required:
 
+[source,java]
+----
+		<!-- resilience4j -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
 
+		<dependency>
+			<groupId>io.github.resilience4j</groupId>
+			<artifactId>resilience4j-spring-boot2</artifactId>
+		</dependency>
+----
 
+Create a REST controller example:
+[source,java]
+----
+@RestController
+public class CircuitBreakerController {
 
+	@GetMapping("/sample-api")
+	public String sampleApi() {
+		return "sample API";
+	}
+----
 
+[source,java]
+----
+	@GetMapping("/failing-sample-api")
+	@Retry(name = "default")
+	public String failingSampleApi() {
+		logger.info("Sample API call received"); //The "retry" will be attemped 3 times by default, before the error
+		ResponseEntity<String> forEntity = new RestTemplate().getForEntity("http://localhost:8001/fake-api", String.class);
 
+		return forEntity.getBody();
+	}
+----
 
+Setting the retry attempts:
+resilience4j.retry.instances.<INSTANCE's NAME>.maxRetryAttempts=5
+
+Example:
+resilience4j.retry.instances.sample-api.maxRetryAttempts=5
+
+[source,java]
+----
+	@GetMapping("/failing-sample-api")
+	@Retry(name = "sample-api")
+	public String failingSampleApi() {
+		logger.info("Sample API call received"); //The "retry" will be attemped 3 times by default, before the error
+		ResponseEntity<String> forEntity = new RestTemplate().getForEntity("http://localhost:8001/fake-api", String.class);
+
+		return forEntity.getBody();
+	}
+----
+
+You can also configure a 'fallbackMethod'
+
+[source,java]
+----
+	@GetMapping("/failing-sample-api")
+	@Retry(name = "sample-api", fallbackMethod = "harcodedResponse")
+	public String failingSampleApi() {
+----
+
+You can configure the time duration between attempts:
+resilience4j.retry.instances.<INSTANCE's NAME>.waitDuration=1s
+
+Configuring ExponentialBackoff	(Each subsequent retry will take longer and longer):
+resilience4j.retry.instances.sample-api.enableExponentialBackoff=true
