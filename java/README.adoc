@@ -229,6 +229,12 @@ Stream is a sequence of elements.
 * Stream Operations can be *sequentially* or *parallel*
 * There 2 kind of operations: Intermidate Operations and Terminal Operation.
 
+*map()*
+Convert from one type to another type
+
+*flatMap()*
+Similar to map(), convert one type to another, but in the context where each element of the stream represents multiple elements(To flatten the Stream).
+
 
 == *JAVA 9...12*
 
