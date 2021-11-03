@@ -235,6 +235,15 @@ Convert from one type to another type
 *flatMap()*
 Similar to map(), convert one type to another, but in the context where each element of the stream represents multiple elements(To flatten the Stream).
 
+*distinct()*
+Return a Stream with unique elements
+
+*count()*
+Return a long with the total numbers of elements in the Stream
+
+*sorted()*
+Sort the elements in the Stream, by default will be sorted by Natural order, but you can use a Comparator.
+
 
 == *JAVA 9...12*
 
