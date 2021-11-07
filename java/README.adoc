@@ -244,6 +244,13 @@ Return a long with the total numbers of elements in the Stream
 *sorted()*
 Sort the elements in the Stream, by default will be sorted by Natural order, but you can use a Comparator.
 
+*redue()*
+Is a Terminal Operation. Used to reduce the contents of a stream to a single value.
+It takes two parameters as input.
+_First parameter_ - default or initial value
+_Second parameter_ - BinaryOperator<T>
+
+
 
 == *JAVA 9...12*
 
