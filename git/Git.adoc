@@ -1,0 +1,87 @@
+= GIT BEST PRACTICES
+Doc Writer <santos.r09@gmail.com>
+:toc:
+
+GIT SQUASH:
+https://www.youtube.com/watch?v=RwvTrSm7zEY
+
+GIT FOR PROFESSIONAL:
+https://www.youtube.com/watch?v=Uszj_k0DGsg
+
+
+
+== THE 'PERFECT' COMMIT
+=== Add the _right_ changes
+Instead cram everything into one commit, add changes from a single topic.
+* Select what should go into the next commit.
+** Select specific files or parts of those files for the next commit.
+
+Command:
+_git add *-p* example.html_
+
+Flag _*-p*_ for patch level
+At patch level we could see every changes and decide if should be included or not
+
+----
+git add -p example.html
+
+output example:
+(1/2) Stage this hunk [y,n,g,a,d,j,J,g,/,e,?]?
+
+_You should answer Yes or Not: *y* or *n*_
+----
+
+* Separate different topics in the commits.
+
+
+
+=== Compose a good commit message
+*Subject:* Concise summary of what happened
+
+*Body:* More detailed explanation
+* What is now different than before?
+* What is the reason for the change?
+* Is there anything to watch out for / anything particularly remarkable?
+
+Command:
+git commit
+
+This will open a window editor, were you should type the commit message, *The first Line will be the Subject of the message, if you add a blank line, git will understand that after the blank Line this will be the Body Message*, put your comments, and save the file.
+
+
+== BRANCHING STRATEGIES
+Create a Written Convention, Agree on a branching workflow for your team.
+. Git allows you to create branches, but it dosen't tell you how to use them.
+. You need a written best practice of how work is ideally structured in your team, to avoid mistakes & collisions.
+. It highly depends on your team / team size, on your project, and how you handle releases.
+. It helps to onboard new team members("This is how we work here").
+
+=== Integrating changes and structuring releases
+==== Mainline Development, Always be integrating
+* Few branches
+* Relatively small commits
+* High-quality testing & QA standards
+
+==== State, release and feature branches
+* Different types of branches
+* Fulfill different types of jobs
+
+===== Long-Running and Short-lived branches
+*Long-running branches*
+* Exist through the complete lifetime of the project.
+* Often, they mirror "stages" in your dev life cycle.
+* Common convention: no direct commits, merge or rebase integration through PR.
+
+*Short-lived branches*
+* For new features, bug fixes, refactorings, experiments
+* Will be deleted after integration(merge/rebase)
+
+The Best branching model?
+- Consider your project, release cycle, and team
+- Take ispiration from existing models
+- Create your own model.
+
+== PULL REQUESTS
+*Communicating about and Reviewing code*
+
+
