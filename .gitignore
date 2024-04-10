@@ -2,6 +2,10 @@
 
 #For a better understanding of .gitignore, and directories and files: https://linuxize.com/post/gitignore-ignoring-files-in-git/
 
+#The slash symbol (/) represents a directory separator. The slash at the beginning of a pattern is relative to the directory where the .gitignore resides.
+#If the pattern starts with a slash, it matches files and directories only in the repository root.
+#If the pattern doesn’t start with a slash, it matches files and directories in any directory or subdirectory.
+
 .idea/
 .mvn/
 target/
