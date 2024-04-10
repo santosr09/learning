@@ -5,3 +5,5 @@
 .idea/
 .mvn/
 target/
+
+*.jar
