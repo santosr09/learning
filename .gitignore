@@ -1,3 +1,6 @@
 /java/ocp11/target/
 
+#For a better understanding of .gitignore, and directories and files: https://linuxize.com/post/gitignore-ignoring-files-in-git/
+
 .idea/
+.mvn/
