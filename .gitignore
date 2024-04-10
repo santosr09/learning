@@ -8,6 +8,7 @@
 
 .idea/
 .mvn/
+lib/
 target/
 
 *.jar
