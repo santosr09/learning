@@ -1,0 +1,20 @@
+= ALGORITHMS AND DATA STRUCTURES
+
+=== BAGS
+*Definition*
+A collection where removing items is ot supported.
+
+*Purpose*
+Its purpose is to provide clients with the ability to collect items and then to iterate through the collected items.
+The client can also test if a bag is empty and find its number of items.
+The order of iteration is unspecified and should be immaterial to the client.
+
+
+*Example*
+public class Bag<Item> implements Iterable<Item>
+Bag() //create an empty bag
+void add(Item item)  //add an item
+boolean isEmpty()  //is the bag empty?
+int size()  //number of items in the bag
+
+
