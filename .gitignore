@@ -10,7 +10,7 @@
 .mvn/
 lib/
 target/
-node-modules/
+node_modules/
 
 *.jar
 *.class
