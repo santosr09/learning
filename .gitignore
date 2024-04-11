@@ -10,6 +10,11 @@
 .mvn/
 lib/
 target/
+
+#angular
+dist/
+
+#node
 node_modules/
 
 *.jar
