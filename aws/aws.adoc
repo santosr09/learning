@@ -1,0 +1,43 @@
+= AWS
+== Regions
+Region = Cluster of data centers
+Most AWS services are region-scoped
+Regions -> Availability Zones(AZ) -> Data Center
+
+AWS Region:
+Sydney: ap-southeast-2
+Availabity-zones:
+ap-southeast-2a
+ap-southeast-2b
+ap-southeast-2c
+
+each AZ has one or more DataCenters
+
+== IAM
+Identity and Access Management
+AWS Security:
+* Users
+* Groups
+* Roles
+Root account should never be used(and shared)
+User must be created with proper permissions
+IAM is at the center of AWS
+*POLICIES* are written in JSON
+
+=== IAM Federation
+Big Enterprises usually integrate their own repository of users with IAM
+Login into AWS Using company credentials
+SAML standard(Active Directory)
+
+One IAM User per PHYSICAL PERSON
+One IAM Role per Application
+*NEVER WRITE IAM CREDENTIALS IN CODE, EVER!*
+Never use ROOT account except for initial setup
+
+
+----
+IAM credentials
+ID:
+011846737036
+Loma1981
+----
