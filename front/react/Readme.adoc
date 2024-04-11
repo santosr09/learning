@@ -1,0 +1,90 @@
+REACT
+
+Imperative - Step by step, detailed instructions
+
+Declarative(React): Component focused approach
+
+React can be used to *control parts* of HTML pages or entire pages. *Widget* approach on a multi-page-application. (Some) pages are still *rendered on and server by a bakcend server*
+
+React can also be used to *control the entire frontend* of a web application. Single-page-application(*SPA*) approach. Server *only sends one HTML page*, thereafter, React takes over and controls the UI.
+
+React os Lean and focused component-based UI library.
+
+Angular is complete component-based UI framework, packed with features. Uses TypeScript. Can be overkill for smaller projects.
+
+
+Suggested online tool:
+https://jsbin.com
+
+
+JAVASCRIPT refresh
+
+var <- previous ES6 | let and const <- new JS(ES6)
+let: variable values
+const: constant values
+
+Example:
+var myName = 'Max';
+myName = 'new name';
+
+
+Arrow functions
+
+old JS
+function myFunc() {
+   ...
+}
+
+new JS(ES6)
+const myFunc = () => { 
+   ...
+}
+
+
+Exports and imports(Modules)
+
+Spread and Rest Operators
+...
+
+_*Spread*_ Used to split up array elements OR object properties
+
+const newArray = [...oldArray, 1, 2]
+const newObject = { ...oldObject, newProp:5 }
+
+_*Rest*_ Used to merge a list of function arguments into an array
+function sortArgs(...args) { 
+   return args.sort()
+}
+
+
+_*Destructuring*_ Easily extract array elements or object properties and store them in variables
+
+Array Destructuring
+[a,b] = ['Hello','Max']
+console.log(a) //Hello
+console.log(b) //Max
+
+Object Destructuring
+{name} = {name: 'Max', age:28}
+console.log(name)//max
+console.log(age) //undefined
+
+
+Objects and arrays are reference types
+
+
+==REACT
+React makes building complex, interactive and reactive user interfaces simpler
+
+React is all about components
+
+
+
+
+
+I would like to be part of the Bitso team to collaborate on the growth of the company, I would like to work together with amazing people that are building and maintaining great software where every individual is high valorized and can produce a high impact on the final customers.
+
+Although my experience could not fulfill 100% the requirements for the vacancy I'm sure that with my attitude, and my dedication I could (in a few months) be a great teammate.
+
+
+I have no experience in applying functional programming to production code. However I understand the concept and I have worked with it in educational projects by using it in Java projects via Lambdas & Streams, and recently in React.
